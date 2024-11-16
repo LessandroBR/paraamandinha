@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amizade com Amandinha</title>
+    <style>
+        /* Estilização geral */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            color: #f8f8f8;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #aad8f0;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #d6eaff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 0 15px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        button#sim {
+            background-color: #4caf50;
+            color: #fff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        button#sim:hover {
+            transform: scale(1.1);
+            background-color: #45a049;
+        }
+
+        button#nao {
+            background-color: #f44336;
+            color: #fff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        button#nao:hover {
+            background-color: #e53935;
+        }
+
+        /* Mensagem final */
+        .message {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffffff;
+            display: none;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 2s ease forwards;
+        }
+
+        .message p {
+            margin: 10px 0;
+        }
+
+        /* Fundo animado pós-celebração */
+        .celebration {
+            background: linear-gradient(45deg, #4a90e2, #007bff, #1e90ff);
+            background-size: 400% 400%;
+            animation: gradientShift 5s infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Animação dos corações */
+        .heart {
+            position: fixed;
+            font-size: 2em;
+            color: rgba(128, 0, 128, 0.7); /* Roxo translúcido */
+            animation: floatHeart 8s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(100vh); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Animação dos confetes */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: floatConfetti 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatConfetti {
+            0% { transform: translateY(-10vh); opacity: 1; }
+            100% { transform: translateY(120vh); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1em;
+            }
+            button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            .message {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Amandinha, aceita ser minha amiga pra todo sempre?</h1>
+    <p>
+        Prometo te perturbar (no bom sentido 😜), cuidar de você, te fazer rir e estar ao seu lado sempre! 💕
+    </p>
+    <div class="buttons">
+        <button id="sim" onclick="aceitou()">Sim, claro!</button>
+        <button id="nao" onmouseover="fugir()">Não</button>
+    </div>
+    <div class="message" id="mensagem">
+        <p>Somos oficialmente amigos, Amandinha! 🥳💙</p>
+        <p>
+            Agora eu vou te perturbar (mas de um jeito fofo), cuidar de você nos dias bons e ruins, e fazer você sorrir sempre que puder! 💕
+        </p>
+    </div>
+
+    <script>
+        function aceitou() {
+            document.body.classList.add('celebration');
+            document.querySelector('.buttons').style.display = 'none';
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('p').style.display = 'none';
+            document.getElementById('mensagem').style.display = 'block';
+
+            // Criar confetes
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = `hsl(220, ${Math.random() * 50 + 50}%, ${Math.random() * 30 + 50}%)`;
+                confetti.style.width = `${Math.random() * 8 + 5}px`;
+                confetti.style.height = confetti.style.width;
+                confetti.style.animationDelay = `${Math.random() * 3}s`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+
+            // Criar corações
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.textContent = '💜';
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDelay = `${Math.random() * 8}s`;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 8000);
+            }
+        }
+
+        function fugir() {
+            const botaoNao = document.getElementById('nao');
+            const x = Math.random() * (window.innerWidth - botaoNao.offsetWidth);
+            const y = Math.random() * (window.innerHeight - botaoNao.offsetHeight);
+            botaoNao.style.position = 'absolute';
+            botaoNao.style.left = `${x}px`;
+            botaoNao.style.top = `${y}px`;
+        }
+    </script>
+</body>
+</html>
